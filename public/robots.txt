@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /wallet
+Disallow: /marketplace
+Disallow: /impact
+Disallow: /leaderboard
+Disallow: /profile
+Disallow: /partner
+Disallow: /admin
