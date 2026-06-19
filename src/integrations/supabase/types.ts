@@ -14,16 +14,319 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      daily_action_limits: {
+        Row: {
+          action_type: Database["public"]["Enums"]["action_type"]
+          count: number
+          day: string
+          user_id: string
+        }
+        Insert: {
+          action_type: Database["public"]["Enums"]["action_type"]
+          count?: number
+          day: string
+          user_id: string
+        }
+        Update: {
+          action_type?: Database["public"]["Enums"]["action_type"]
+          count?: number
+          day?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      green_actions: {
+        Row: {
+          action_type: Database["public"]["Enums"]["action_type"]
+          carbon_kg_saved: number
+          created_at: string
+          device_fingerprint: string | null
+          distance_km: number
+          duration_min: number
+          id: string
+          points_earned: number
+          raw_payload: Json | null
+          region_code: string
+          user_id: string
+          verified: boolean
+        }
+        Insert: {
+          action_type: Database["public"]["Enums"]["action_type"]
+          carbon_kg_saved?: number
+          created_at?: string
+          device_fingerprint?: string | null
+          distance_km?: number
+          duration_min?: number
+          id?: string
+          points_earned?: number
+          raw_payload?: Json | null
+          region_code?: string
+          user_id: string
+          verified?: boolean
+        }
+        Update: {
+          action_type?: Database["public"]["Enums"]["action_type"]
+          carbon_kg_saved?: number
+          created_at?: string
+          device_fingerprint?: string | null
+          distance_km?: number
+          duration_min?: number
+          id?: string
+          points_earned?: number
+          raw_payload?: Json | null
+          region_code?: string
+          user_id?: string
+          verified?: boolean
+        }
+        Relationships: []
+      }
+      partners: {
+        Row: {
+          approved: boolean
+          business_name: string
+          category: string
+          created_at: string
+          description: string | null
+          id: string
+          location: string | null
+          logo_url: string | null
+          owner_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          approved?: boolean
+          business_name: string
+          category: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          location?: string | null
+          logo_url?: string | null
+          owner_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          approved?: boolean
+          business_name?: string
+          category?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          location?: string | null
+          logo_url?: string | null
+          owner_id?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          anonymous_on_leaderboard: boolean
+          avatar_url: string | null
+          created_at: string
+          current_streak: number
+          display_name: string | null
+          id: string
+          last_action_date: string | null
+          region_code: string
+          total_carbon_kg: number
+          total_points: number
+          updated_at: string
+        }
+        Insert: {
+          anonymous_on_leaderboard?: boolean
+          avatar_url?: string | null
+          created_at?: string
+          current_streak?: number
+          display_name?: string | null
+          id: string
+          last_action_date?: string | null
+          region_code?: string
+          total_carbon_kg?: number
+          total_points?: number
+          updated_at?: string
+        }
+        Update: {
+          anonymous_on_leaderboard?: boolean
+          avatar_url?: string | null
+          created_at?: string
+          current_streak?: number
+          display_name?: string | null
+          id?: string
+          last_action_date?: string | null
+          region_code?: string
+          total_carbon_kg?: number
+          total_points?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      redemptions: {
+        Row: {
+          code: string
+          code_expires_at: string
+          cost_points: number
+          created_at: string
+          id: string
+          reward_id: string
+          status: Database["public"]["Enums"]["redemption_status"]
+          used_at: string | null
+          user_id: string
+        }
+        Insert: {
+          code: string
+          code_expires_at: string
+          cost_points: number
+          created_at?: string
+          id?: string
+          reward_id: string
+          status?: Database["public"]["Enums"]["redemption_status"]
+          used_at?: string | null
+          user_id: string
+        }
+        Update: {
+          code?: string
+          code_expires_at?: string
+          cost_points?: number
+          created_at?: string
+          id?: string
+          reward_id?: string
+          status?: Database["public"]["Enums"]["redemption_status"]
+          used_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "redemptions_reward_id_fkey"
+            columns: ["reward_id"]
+            isOneToOne: false
+            referencedRelation: "rewards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      rewards: {
+        Row: {
+          active: boolean
+          category: string
+          cost_points: number
+          created_at: string
+          description: string | null
+          id: string
+          image_url: string | null
+          location: string | null
+          partner_id: string
+          stock: number | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          category: string
+          cost_points: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          location?: string | null
+          partner_id: string
+          stock?: number | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          category?: string
+          cost_points?: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          location?: string | null
+          partner_id?: string
+          stock?: number | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "rewards_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      wallet_transactions: {
+        Row: {
+          created_at: string
+          delta_points: number
+          description: string | null
+          id: string
+          kind: Database["public"]["Enums"]["txn_kind"]
+          reference_id: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          delta_points: number
+          description?: string | null
+          id?: string
+          kind: Database["public"]["Enums"]["txn_kind"]
+          reference_id?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          delta_points?: number
+          description?: string | null
+          id?: string
+          kind?: Database["public"]["Enums"]["txn_kind"]
+          reference_id?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      action_type: "bike" | "walk" | "transit" | "utility_saving" | "food_waste"
+      app_role: "admin" | "partner" | "user"
+      redemption_status: "pending" | "used" | "expired" | "cancelled"
+      txn_kind: "earn" | "redeem" | "adjust"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +453,11 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      action_type: ["bike", "walk", "transit", "utility_saving", "food_waste"],
+      app_role: ["admin", "partner", "user"],
+      redemption_status: ["pending", "used", "expired", "cancelled"],
+      txn_kind: ["earn", "redeem", "adjust"],
+    },
   },
 } as const
