@@ -9,38 +9,214 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedWalletRouteImport } from './routes/_authenticated/wallet'
+import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
+import { Route as AuthenticatedPartnerRouteImport } from './routes/_authenticated/partner'
+import { Route as AuthenticatedMarketplaceRouteImport } from './routes/_authenticated/marketplace'
+import { Route as AuthenticatedLeaderboardRouteImport } from './routes/_authenticated/leaderboard'
+import { Route as AuthenticatedImpactRouteImport } from './routes/_authenticated/impact'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedProfilePrivacyRouteImport } from './routes/_authenticated/profile.privacy'
+import { Route as AuthenticatedPartnerDashboardRouteImport } from './routes/_authenticated/partner.dashboard'
+import { Route as AuthenticatedMarketplaceIdRouteImport } from './routes/_authenticated/marketplace.$id'
 
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedWalletRoute = AuthenticatedWalletRouteImport.update({
+  id: '/wallet',
+  path: '/wallet',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedPartnerRoute = AuthenticatedPartnerRouteImport.update({
+  id: '/partner',
+  path: '/partner',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedMarketplaceRoute =
+  AuthenticatedMarketplaceRouteImport.update({
+    id: '/marketplace',
+    path: '/marketplace',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedLeaderboardRoute =
+  AuthenticatedLeaderboardRouteImport.update({
+    id: '/leaderboard',
+    path: '/leaderboard',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedImpactRoute = AuthenticatedImpactRouteImport.update({
+  id: '/impact',
+  path: '/impact',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedProfilePrivacyRoute =
+  AuthenticatedProfilePrivacyRouteImport.update({
+    id: '/privacy',
+    path: '/privacy',
+    getParentRoute: () => AuthenticatedProfileRoute,
+  } as any)
+const AuthenticatedPartnerDashboardRoute =
+  AuthenticatedPartnerDashboardRouteImport.update({
+    id: '/dashboard',
+    path: '/dashboard',
+    getParentRoute: () => AuthenticatedPartnerRoute,
+  } as any)
+const AuthenticatedMarketplaceIdRoute =
+  AuthenticatedMarketplaceIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () => AuthenticatedMarketplaceRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/admin': typeof AuthenticatedAdminRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/impact': typeof AuthenticatedImpactRoute
+  '/leaderboard': typeof AuthenticatedLeaderboardRoute
+  '/marketplace': typeof AuthenticatedMarketplaceRouteWithChildren
+  '/partner': typeof AuthenticatedPartnerRouteWithChildren
+  '/profile': typeof AuthenticatedProfileRouteWithChildren
+  '/wallet': typeof AuthenticatedWalletRoute
+  '/marketplace/$id': typeof AuthenticatedMarketplaceIdRoute
+  '/partner/dashboard': typeof AuthenticatedPartnerDashboardRoute
+  '/profile/privacy': typeof AuthenticatedProfilePrivacyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/admin': typeof AuthenticatedAdminRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/impact': typeof AuthenticatedImpactRoute
+  '/leaderboard': typeof AuthenticatedLeaderboardRoute
+  '/marketplace': typeof AuthenticatedMarketplaceRouteWithChildren
+  '/partner': typeof AuthenticatedPartnerRouteWithChildren
+  '/profile': typeof AuthenticatedProfileRouteWithChildren
+  '/wallet': typeof AuthenticatedWalletRoute
+  '/marketplace/$id': typeof AuthenticatedMarketplaceIdRoute
+  '/partner/dashboard': typeof AuthenticatedPartnerDashboardRoute
+  '/profile/privacy': typeof AuthenticatedProfilePrivacyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/impact': typeof AuthenticatedImpactRoute
+  '/_authenticated/leaderboard': typeof AuthenticatedLeaderboardRoute
+  '/_authenticated/marketplace': typeof AuthenticatedMarketplaceRouteWithChildren
+  '/_authenticated/partner': typeof AuthenticatedPartnerRouteWithChildren
+  '/_authenticated/profile': typeof AuthenticatedProfileRouteWithChildren
+  '/_authenticated/wallet': typeof AuthenticatedWalletRoute
+  '/_authenticated/marketplace/$id': typeof AuthenticatedMarketplaceIdRoute
+  '/_authenticated/partner/dashboard': typeof AuthenticatedPartnerDashboardRoute
+  '/_authenticated/profile/privacy': typeof AuthenticatedProfilePrivacyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/admin'
+    | '/dashboard'
+    | '/impact'
+    | '/leaderboard'
+    | '/marketplace'
+    | '/partner'
+    | '/profile'
+    | '/wallet'
+    | '/marketplace/$id'
+    | '/partner/dashboard'
+    | '/profile/privacy'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/auth'
+    | '/admin'
+    | '/dashboard'
+    | '/impact'
+    | '/leaderboard'
+    | '/marketplace'
+    | '/partner'
+    | '/profile'
+    | '/wallet'
+    | '/marketplace/$id'
+    | '/partner/dashboard'
+    | '/profile/privacy'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/auth'
+    | '/_authenticated/admin'
+    | '/_authenticated/dashboard'
+    | '/_authenticated/impact'
+    | '/_authenticated/leaderboard'
+    | '/_authenticated/marketplace'
+    | '/_authenticated/partner'
+    | '/_authenticated/profile'
+    | '/_authenticated/wallet'
+    | '/_authenticated/marketplace/$id'
+    | '/_authenticated/partner/dashboard'
+    | '/_authenticated/profile/privacy'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +224,151 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/wallet': {
+      id: '/_authenticated/wallet'
+      path: '/wallet'
+      fullPath: '/wallet'
+      preLoaderRoute: typeof AuthenticatedWalletRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/profile': {
+      id: '/_authenticated/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthenticatedProfileRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/partner': {
+      id: '/_authenticated/partner'
+      path: '/partner'
+      fullPath: '/partner'
+      preLoaderRoute: typeof AuthenticatedPartnerRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/marketplace': {
+      id: '/_authenticated/marketplace'
+      path: '/marketplace'
+      fullPath: '/marketplace'
+      preLoaderRoute: typeof AuthenticatedMarketplaceRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/leaderboard': {
+      id: '/_authenticated/leaderboard'
+      path: '/leaderboard'
+      fullPath: '/leaderboard'
+      preLoaderRoute: typeof AuthenticatedLeaderboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/impact': {
+      id: '/_authenticated/impact'
+      path: '/impact'
+      fullPath: '/impact'
+      preLoaderRoute: typeof AuthenticatedImpactRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/profile/privacy': {
+      id: '/_authenticated/profile/privacy'
+      path: '/privacy'
+      fullPath: '/profile/privacy'
+      preLoaderRoute: typeof AuthenticatedProfilePrivacyRouteImport
+      parentRoute: typeof AuthenticatedProfileRoute
+    }
+    '/_authenticated/partner/dashboard': {
+      id: '/_authenticated/partner/dashboard'
+      path: '/dashboard'
+      fullPath: '/partner/dashboard'
+      preLoaderRoute: typeof AuthenticatedPartnerDashboardRouteImport
+      parentRoute: typeof AuthenticatedPartnerRoute
+    }
+    '/_authenticated/marketplace/$id': {
+      id: '/_authenticated/marketplace/$id'
+      path: '/$id'
+      fullPath: '/marketplace/$id'
+      preLoaderRoute: typeof AuthenticatedMarketplaceIdRouteImport
+      parentRoute: typeof AuthenticatedMarketplaceRoute
+    }
   }
 }
 
+interface AuthenticatedMarketplaceRouteChildren {
+  AuthenticatedMarketplaceIdRoute: typeof AuthenticatedMarketplaceIdRoute
+}
+
+const AuthenticatedMarketplaceRouteChildren: AuthenticatedMarketplaceRouteChildren =
+  {
+    AuthenticatedMarketplaceIdRoute: AuthenticatedMarketplaceIdRoute,
+  }
+
+const AuthenticatedMarketplaceRouteWithChildren =
+  AuthenticatedMarketplaceRoute._addFileChildren(
+    AuthenticatedMarketplaceRouteChildren,
+  )
+
+interface AuthenticatedPartnerRouteChildren {
+  AuthenticatedPartnerDashboardRoute: typeof AuthenticatedPartnerDashboardRoute
+}
+
+const AuthenticatedPartnerRouteChildren: AuthenticatedPartnerRouteChildren = {
+  AuthenticatedPartnerDashboardRoute: AuthenticatedPartnerDashboardRoute,
+}
+
+const AuthenticatedPartnerRouteWithChildren =
+  AuthenticatedPartnerRoute._addFileChildren(AuthenticatedPartnerRouteChildren)
+
+interface AuthenticatedProfileRouteChildren {
+  AuthenticatedProfilePrivacyRoute: typeof AuthenticatedProfilePrivacyRoute
+}
+
+const AuthenticatedProfileRouteChildren: AuthenticatedProfileRouteChildren = {
+  AuthenticatedProfilePrivacyRoute: AuthenticatedProfilePrivacyRoute,
+}
+
+const AuthenticatedProfileRouteWithChildren =
+  AuthenticatedProfileRoute._addFileChildren(AuthenticatedProfileRouteChildren)
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedImpactRoute: typeof AuthenticatedImpactRoute
+  AuthenticatedLeaderboardRoute: typeof AuthenticatedLeaderboardRoute
+  AuthenticatedMarketplaceRoute: typeof AuthenticatedMarketplaceRouteWithChildren
+  AuthenticatedPartnerRoute: typeof AuthenticatedPartnerRouteWithChildren
+  AuthenticatedProfileRoute: typeof AuthenticatedProfileRouteWithChildren
+  AuthenticatedWalletRoute: typeof AuthenticatedWalletRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedImpactRoute: AuthenticatedImpactRoute,
+  AuthenticatedLeaderboardRoute: AuthenticatedLeaderboardRoute,
+  AuthenticatedMarketplaceRoute: AuthenticatedMarketplaceRouteWithChildren,
+  AuthenticatedPartnerRoute: AuthenticatedPartnerRouteWithChildren,
+  AuthenticatedProfileRoute: AuthenticatedProfileRouteWithChildren,
+  AuthenticatedWalletRoute: AuthenticatedWalletRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
