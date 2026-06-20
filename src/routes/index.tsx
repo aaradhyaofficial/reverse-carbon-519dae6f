@@ -64,7 +64,7 @@ function Landing() {
               </Button>
             </div>
             <dl className="mt-10 grid grid-cols-3 gap-6 text-sm">
-              <Stat label="Avg. earn/week" value="$4–$12" />
+              <Stat label="Avg. earn/week" value="₹320–₹1,000" />
               <Stat label="Verified actions" value="5 types" />
               <Stat label="Partner network" value="3+ live" />
             </dl>
@@ -89,7 +89,7 @@ function Landing() {
               </ul>
               <div className="mt-6 rounded-xl bg-leaf p-4 text-primary-foreground">
                 <p className="text-xs opacity-80">Tap to redeem</p>
-                <p className="mt-1 font-display text-lg font-semibold">$3 off pour-over</p>
+                <p className="mt-1 font-display text-lg font-semibold">₹250 off pour-over</p>
                 <p className="mt-3 text-[11px] opacity-70">QR expires 60s after tap.</p>
               </div>
             </div>
