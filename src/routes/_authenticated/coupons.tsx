@@ -1,9 +1,10 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { AppShell } from "@/components/AppShell";
 import { listMyCoupons } from "@/lib/app.functions";
-import { Ticket, MapPin, Store } from "lucide-react";
+import { Ticket, MapPin, Store, Sparkles } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_authenticated/coupons")({
   head: () => ({ meta: [{ title: "Coupons — Reverse Carbon" }] }),
@@ -11,9 +12,11 @@ export const Route = createFileRoute("/_authenticated/coupons")({
 });
 
 function CouponsPage() {
+  const router = useRouter();
   const fn = useServerFn(listMyCoupons);
   const q = useQuery({ queryKey: ["coupons"], queryFn: () => fn() });
   const coupons = q.data ?? [];
+  const newCouponId = (router.state.location.state as any)?.newCouponId as string | undefined;
 
   return (
     <AppShell>
@@ -31,11 +34,22 @@ function CouponsPage() {
           <ul className="mt-6 grid gap-4 md:grid-cols-2">
             {coupons.map((c) => {
               const r = (c as any).rewards;
+              const isNew = c.id === newCouponId;
               return (
                 <li
                   key={c.id}
-                  className="rounded-2xl border border-border bg-card p-5 shadow-soft"
+                  className={cn(
+                    "relative rounded-2xl border p-5 shadow-soft transition",
+                    isNew
+                      ? "border-primary bg-primary/5 ring-2 ring-primary/20"
+                      : "border-border bg-card",
+                  )}
                 >
+                  {isNew && (
+                    <span className="absolute -top-2 -right-2 inline-flex items-center gap-1 rounded-full bg-primary px-2 py-0.5 text-xs font-semibold text-primary-foreground shadow">
+                      <Sparkles className="h-3 w-3" /> New
+                    </span>
+                  )}
                   <div className="flex items-center justify-between">
                     <span className="rounded-full bg-secondary px-2.5 py-0.5 text-xs font-medium text-secondary-foreground">
                       {r?.category ?? "Reward"}

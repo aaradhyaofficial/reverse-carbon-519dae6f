@@ -36,11 +36,11 @@ function Marketplace() {
       setBuyingId(rewardId);
       return redeemFn({ data: { rewardId } });
     },
-    onSuccess: () => {
+    onSuccess: (result) => {
       toast.success("Purchased! Coupon added to your Coupons page.");
       qc.invalidateQueries({ queryKey: ["wallet"] });
       qc.invalidateQueries({ queryKey: ["coupons"] });
-      router.navigate({ to: "/coupons" });
+      router.navigate({ to: "/coupons", state: { newCouponId: result.redemptionId } as Record<string, unknown> });
     },
     onError: (e) => toast.error(e instanceof Error ? e.message : "Purchase failed"),
     onSettled: () => setBuyingId(null),
