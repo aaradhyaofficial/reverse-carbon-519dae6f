@@ -14,7 +14,7 @@ function Admin() {
   const fn = useServerFn(adminOverview);
   const q = useQuery({ queryKey: ["admin"], queryFn: () => fn(), retry: false });
 
-  if (q.error) {
+  if (q.error || q.data?.forbidden) {
     return (
       <AppShell>
         <section>
