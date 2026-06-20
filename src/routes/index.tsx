@@ -89,7 +89,7 @@ function Landing() {
               </ul>
               <div className="mt-6 rounded-xl bg-leaf p-4 text-primary-foreground">
                 <p className="text-xs opacity-80">Tap to redeem</p>
-                <p className="mt-1 font-display text-lg font-semibold">$3 off pour-over</p>
+                <p className="mt-1 font-display text-lg font-semibold">₹250 off pour-over</p>
                 <p className="mt-3 text-[11px] opacity-70">QR expires 60s after tap.</p>
               </div>
             </div>
