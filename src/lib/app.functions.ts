@@ -396,7 +396,7 @@ export const adminOverview = createServerFn({ method: "GET" })
       .eq("user_id", context.userId)
       .eq("role", "admin")
       .maybeSingle();
-    if (!isAdmin) throw new Error("Forbidden");
+    if (!isAdmin) return { forbidden: true as const };
     const [users, partners, rewards, redemptions, actions] = await Promise.all([
       context.supabase.from("profiles").select("id", { count: "exact", head: true }),
       context.supabase.from("partners").select("id", { count: "exact", head: true }),
@@ -405,6 +405,7 @@ export const adminOverview = createServerFn({ method: "GET" })
       context.supabase.from("green_actions").select("id", { count: "exact", head: true }),
     ]);
     return {
+      forbidden: false as const,
       users: users.count ?? 0,
       partners: partners.count ?? 0,
       rewards: rewards.count ?? 0,
