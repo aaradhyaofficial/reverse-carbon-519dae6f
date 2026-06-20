@@ -64,7 +64,7 @@ function Landing() {
               </Button>
             </div>
             <dl className="mt-10 grid grid-cols-3 gap-6 text-sm">
-              <Stat label="Avg. earn/week" value="$4–$12" />
+              <Stat label="Avg. earn/week" value="₹320–₹1,000" />
               <Stat label="Verified actions" value="5 types" />
               <Stat label="Partner network" value="3+ live" />
             </dl>
