@@ -232,8 +232,10 @@ export const createRedemption = createServerFn({ method: "POST" })
 // ----- Leaderboard (anonymous by default) -----
 export const getLeaderboard = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .handler(async ({ context }) => {
-    const { data } = await context.supabase
+  .handler(async () => {
+    // Use admin client to read aggregated leaderboard data; expose only anonymized fields.
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data } = await supabaseAdmin
       .from("profiles")
       .select("id,display_name,anonymous_on_leaderboard,total_carbon_kg,total_points,current_streak")
       .order("total_carbon_kg", { ascending: false })
