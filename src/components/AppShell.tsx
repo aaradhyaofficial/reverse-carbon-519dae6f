@@ -10,6 +10,7 @@ import {
   Shield,
   LogOut,
   Menu,
+  Ticket,
 } from "lucide-react";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -20,6 +21,7 @@ const NAV = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { to: "/wallet", label: "Wallet", icon: Wallet },
   { to: "/marketplace", label: "Marketplace", icon: Store },
+  { to: "/coupons", label: "Coupons", icon: Ticket },
   { to: "/impact", label: "Impact", icon: Sprout },
   { to: "/leaderboard", label: "Leaderboard", icon: Trophy },
   { to: "/profile", label: "Profile", icon: UserRound },

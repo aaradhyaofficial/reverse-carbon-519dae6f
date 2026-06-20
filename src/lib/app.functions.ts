@@ -229,6 +229,20 @@ export const createRedemption = createServerFn({ method: "POST" })
     return { redemptionId: redemption.id, code, expiresAt };
   });
 
+// ----- My coupons (redemption history) -----
+export const listMyCoupons = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { supabase, userId } = context;
+    const { data } = await supabase
+      .from("redemptions")
+      .select("id,code,status,created_at,code_expires_at,cost_points,used_at,rewards(title,description,category,location,partners(business_name))")
+      .eq("user_id", userId)
+      .order("created_at", { ascending: false })
+      .limit(100);
+    return data ?? [];
+  });
+
 // ----- Leaderboard (anonymous by default) -----
 export const getLeaderboard = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
