@@ -32,7 +32,7 @@ function CouponsPage() {
         ) : (
           <ul className="mt-6 grid gap-4 md:grid-cols-2">
             {coupons.map((c) => {
-              const r = (c as any).rewards;
+              const r = (c as { rewards?: { title?: string; description?: string; category?: string; location?: string; partners?: { business_name?: string } | null } | null }).rewards;
               const isNew = c.id === newCouponId;
               return (
                 <li
