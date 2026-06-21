@@ -19,9 +19,10 @@ export const logGreenAction = createServerFn({ method: "POST" })
   .inputValidator((d) => logActionSchema.parse(d))
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const today = new Date().toISOString().slice(0, 10);
 
-    // Fraud control: max 3 actions of the same type per day (per fingerprint).
+    // Fraud control: max 3 actions of the same type per day.
     const { data: limitRow } = await supabase
       .from("daily_action_limits")
       .select("count")
@@ -44,8 +45,8 @@ export const logGreenAction = createServerFn({ method: "POST" })
 
     if (points <= 0) throw new Error("This action does not qualify for points.");
 
-    // Insert action
-    const { data: action, error } = await supabase
+    // Insert action (server-only write)
+    const { data: action, error } = await supabaseAdmin
       .from("green_actions")
       .insert({
         user_id: userId,
@@ -62,8 +63,8 @@ export const logGreenAction = createServerFn({ method: "POST" })
       .single();
     if (error) throw new Error(error.message);
 
-    // Wallet txn
-    await supabase.from("wallet_transactions").insert({
+    // Wallet txn (server-only write)
+    await supabaseAdmin.from("wallet_transactions").insert({
       user_id: userId,
       delta_points: points,
       kind: "earn",
@@ -71,16 +72,16 @@ export const logGreenAction = createServerFn({ method: "POST" })
       description: `Earned for ${data.type}`,
     });
 
-    // Update daily limit
+    // Update daily limit (server-only write)
     if (limitRow) {
-      await supabase
+      await supabaseAdmin
         .from("daily_action_limits")
         .update({ count: limitRow.count + 1 })
         .eq("user_id", userId)
         .eq("action_type", data.type)
         .eq("day", today);
     } else {
-      await supabase
+      await supabaseAdmin
         .from("daily_action_limits")
         .insert({ user_id: userId, action_type: data.type, day: today, count: 1 });
     }
@@ -174,6 +175,7 @@ export const createRedemption = createServerFn({ method: "POST" })
   .inputValidator((d) => z.object({ rewardId: z.string().uuid() }).parse(d))
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: reward, error: rerr } = await supabase
       .from("rewards")
       .select("id,cost_points,active,title")
@@ -207,15 +209,14 @@ export const createRedemption = createServerFn({ method: "POST" })
       .single();
     if (error) throw new Error(error.message);
 
-    // Deduct from wallet immediately (atomicity via single insert)
-    await supabase.from("wallet_transactions").insert({
+    // Deduct from wallet (server-only write)
+    await supabaseAdmin.from("wallet_transactions").insert({
       user_id: userId,
       delta_points: -reward.cost_points,
       kind: "redeem",
       reference_id: redemption.id,
       description: `Redeemed: ${reward.title}`,
     });
-    await supabase.rpc; // noop
     const { data: prof } = await supabase
       .from("profiles")
       .select("total_points")
@@ -308,10 +309,11 @@ export const deleteMyData = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
     const { supabase, userId } = context;
-    await supabase.from("wallet_transactions").delete().eq("user_id", userId);
-    await supabase.from("green_actions").delete().eq("user_id", userId);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    await supabaseAdmin.from("wallet_transactions").delete().eq("user_id", userId);
+    await supabaseAdmin.from("green_actions").delete().eq("user_id", userId);
     await supabase.from("redemptions").delete().eq("user_id", userId);
-    await supabase.from("daily_action_limits").delete().eq("user_id", userId);
+    await supabaseAdmin.from("daily_action_limits").delete().eq("user_id", userId);
     await supabase
       .from("profiles")
       .update({ total_carbon_kg: 0, total_points: 0, current_streak: 0, last_action_date: null })
