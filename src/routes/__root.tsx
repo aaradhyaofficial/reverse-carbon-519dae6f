@@ -85,8 +85,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Reverse Carbon Pricing — Get paid to live greener" },
       { name: "twitter:description", content: "Earn real rewards for verified green actions — biking, walking, transit, energy saved. Redeem at local partners with a one-tap QR." },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/eb3b138d-2756-485f-b63a-040a8ef9b64f" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/eb3b138d-2756-485f-b63a-040a8ef9b64f" },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/1e4636da-c920-42a6-b2d8-b84f9437e3fd" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/1e4636da-c920-42a6-b2d8-b84f9437e3fd" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
