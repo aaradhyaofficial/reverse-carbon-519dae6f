@@ -16,7 +16,8 @@ function CouponsPage() {
   const fn = useServerFn(listMyCoupons);
   const q = useQuery({ queryKey: ["coupons"], queryFn: () => fn() });
   const coupons = q.data ?? [];
-  const newCouponId = (router.state.location.state as any)?.newCouponId as string | undefined;
+  const newCouponId = (router.state.location.state as Record<string, unknown> | undefined)
+    ?.newCouponId as string | undefined;
 
   return (
     <AppShell>
