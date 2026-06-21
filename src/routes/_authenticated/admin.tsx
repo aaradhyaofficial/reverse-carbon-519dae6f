@@ -44,8 +44,13 @@ function Admin() {
             ["Redemptions", stats?.redemptions],
             ["Actions", stats?.actions],
           ].map(([label, value]) => (
-            <div key={label as string} className="rounded-2xl border border-border bg-card p-5 shadow-soft">
-              <p className="text-xs uppercase tracking-wider text-muted-foreground">{label as string}</p>
+            <div
+              key={label as string}
+              className="rounded-2xl border border-border bg-card p-5 shadow-soft"
+            >
+              <p className="text-xs uppercase tracking-wider text-muted-foreground">
+                {label as string}
+              </p>
               <p className="mt-1 font-display text-3xl font-semibold">{value as number}</p>
             </div>
           ))}

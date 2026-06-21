@@ -50,8 +50,8 @@ function Landing() {
               Get paid to <span className="text-primary">live greener.</span>
             </h1>
             <p className="mt-5 max-w-xl text-lg text-muted-foreground text-balance">
-              Bike. Walk. Take transit. Save energy. We verify the action and pay you in rewards
-              you can redeem at local cafés, shops, and climate causes.
+              Bike. Walk. Take transit. Save energy. We verify the action and pay you in rewards you
+              can redeem at local cafés, shops, and climate causes.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <Button size="lg" asChild>
@@ -100,9 +100,21 @@ function Landing() {
       <section className="mx-auto max-w-6xl px-4 py-16">
         <h2 className="font-display text-3xl font-semibold">How it works</h2>
         <div className="mt-8 grid gap-5 md:grid-cols-3">
-          <Card icon={Bike} title="Do something green" copy="Bike, walk, take transit, or cut energy use." />
-          <Card icon={ShieldCheck} title="We verify it" copy="GPS, transit cards, or utility data — no honor system." />
-          <Card icon={QrCode} title="Redeem rewards" copy="One-tap QR at partner checkout. Codes expire in 60s." />
+          <Card
+            icon={Bike}
+            title="Do something green"
+            copy="Bike, walk, take transit, or cut energy use."
+          />
+          <Card
+            icon={ShieldCheck}
+            title="We verify it"
+            copy="GPS, transit cards, or utility data — no honor system."
+          />
+          <Card
+            icon={QrCode}
+            title="Redeem rewards"
+            copy="One-tap QR at partner checkout. Codes expire in 60s."
+          />
         </div>
       </section>
     </div>

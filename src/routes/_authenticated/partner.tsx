@@ -44,7 +44,9 @@ function PartnerPortal() {
           <h1 className="font-display text-3xl font-semibold flex items-center gap-2">
             <Building2 className="h-7 w-7 text-primary" /> {q.data.partner.business_name}
           </h1>
-          <p className="mt-1 text-muted-foreground">You're a partner. Head to your dashboard to manage rewards.</p>
+          <p className="mt-1 text-muted-foreground">
+            You're a partner. Head to your dashboard to manage rewards.
+          </p>
           <Button className="mt-6" asChild>
             <Link to="/partner/dashboard">Open partner dashboard</Link>
           </Button>
@@ -58,7 +60,8 @@ function PartnerPortal() {
       <section className="max-w-xl">
         <h1 className="font-display text-3xl font-semibold">Become a partner</h1>
         <p className="mt-1 text-muted-foreground">
-          Offer rewards in exchange for verified green behavior. We bring you loyal, intent-driven customers.
+          Offer rewards in exchange for verified green behavior. We bring you loyal, intent-driven
+          customers.
         </p>
         <form
           className="mt-6 space-y-4 rounded-2xl border border-border bg-card p-6 shadow-soft"
@@ -69,19 +72,37 @@ function PartnerPortal() {
         >
           <div>
             <Label htmlFor="bn">Business name</Label>
-            <Input id="bn" required value={form.business_name} onChange={(e) => setForm({ ...form, business_name: e.target.value })} />
+            <Input
+              id="bn"
+              required
+              value={form.business_name}
+              onChange={(e) => setForm({ ...form, business_name: e.target.value })}
+            />
           </div>
           <div>
             <Label htmlFor="cat">Category</Label>
-            <Input id="cat" required value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} />
+            <Input
+              id="cat"
+              required
+              value={form.category}
+              onChange={(e) => setForm({ ...form, category: e.target.value })}
+            />
           </div>
           <div>
             <Label htmlFor="loc">Location</Label>
-            <Input id="loc" value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} />
+            <Input
+              id="loc"
+              value={form.location}
+              onChange={(e) => setForm({ ...form, location: e.target.value })}
+            />
           </div>
           <div>
             <Label htmlFor="desc">Description</Label>
-            <Textarea id="desc" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
+            <Textarea
+              id="desc"
+              value={form.description}
+              onChange={(e) => setForm({ ...form, description: e.target.value })}
+            />
           </div>
           <Button type="submit" disabled={mut.isPending}>
             {mut.isPending ? "Creating…" : "Create partner profile"}

@@ -3,11 +3,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { AppShell } from "@/components/AppShell";
-import {
-  getWalletSummary,
-  getRecentActions,
-  logGreenAction,
-} from "@/lib/app.functions";
+import { getWalletSummary, getRecentActions, logGreenAction } from "@/lib/app.functions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -52,7 +48,11 @@ function Dashboard() {
     mutationFn: async () => {
       const num = Number(amount);
       if (!Number.isFinite(num) || num <= 0) throw new Error("Enter a positive amount");
-      const payload: Record<string, unknown> = { type, region, deviceFingerprint: navigator.userAgent.slice(0, 64) };
+      const payload: Record<string, unknown> = {
+        type,
+        region,
+        deviceFingerprint: navigator.userAgent.slice(0, 64),
+      };
       if (type === "utility_saving") payload.kwhSaved = num;
       else if (type === "food_waste") payload.mealsSaved = Math.floor(num);
       else payload.distanceKm = num;
@@ -82,7 +82,10 @@ function Dashboard() {
 
         <div className="mt-6 grid gap-4 md:grid-cols-4">
           <Stat label="Wallet" value={`${balance.toLocaleString()} pts`} accent />
-          <Stat label="Carbon saved" value={`${Number(profile?.total_carbon_kg ?? 0).toFixed(1)} kg`} />
+          <Stat
+            label="Carbon saved"
+            value={`${Number(profile?.total_carbon_kg ?? 0).toFixed(1)} kg`}
+          />
           <Stat label="Streak" value={`${profile?.current_streak ?? 0} days`} />
           <Stat label="Region" value={profile?.region_code ?? "—"} />
         </div>
@@ -124,9 +127,7 @@ function Dashboard() {
             }}
           >
             <div>
-              <Label htmlFor="amount">
-                Amount ({ACTIONS.find((a) => a.type === type)!.unit})
-              </Label>
+              <Label htmlFor="amount">Amount ({ACTIONS.find((a) => a.type === type)!.unit})</Label>
               <Input
                 id="amount"
                 type="number"
@@ -166,9 +167,7 @@ function Dashboard() {
                 <span className="flex items-center gap-2 text-muted-foreground">
                   <Sprout className="h-4 w-4 text-primary" />
                   <span className="capitalize">{a.action_type.replace("_", " ")}</span>
-                  <span className="text-xs">
-                    · {Number(a.carbon_kg_saved).toFixed(2)} kg
-                  </span>
+                  <span className="text-xs">· {Number(a.carbon_kg_saved).toFixed(2)} kg</span>
                 </span>
                 <span className="font-medium text-primary">+{a.points_earned}</span>
               </li>
@@ -192,7 +191,9 @@ function Stat({ label, value, accent }: { label: string; value: string; accent?:
         accent ? "bg-leaf text-primary-foreground" : "bg-card"
       }`}
     >
-      <p className={`text-xs uppercase tracking-wider ${accent ? "opacity-80" : "text-muted-foreground"}`}>
+      <p
+        className={`text-xs uppercase tracking-wider ${accent ? "opacity-80" : "text-muted-foreground"}`}
+      >
         {label}
       </p>
       <p className="mt-1 font-display text-2xl font-semibold">{value}</p>

@@ -22,9 +22,7 @@ function CouponsPage() {
     <AppShell>
       <section>
         <h1 className="font-display text-3xl font-semibold">My Coupons</h1>
-        <p className="mt-1 text-muted-foreground">
-          Rewards you've exchanged with your points.
-        </p>
+        <p className="mt-1 text-muted-foreground">Rewards you've exchanged with your points.</p>
 
         {coupons.length === 0 ? (
           <div className="mt-8 rounded-2xl border border-dashed border-border p-10 text-center text-muted-foreground">
@@ -83,9 +81,7 @@ function CouponsPage() {
                         {c.code}
                       </span>
                     </div>
-                    <span className="text-xs capitalize text-muted-foreground">
-                      {c.status}
-                    </span>
+                    <span className="text-xs capitalize text-muted-foreground">{c.status}</span>
                   </div>
                   <p className="mt-2 text-[11px] text-muted-foreground">
                     Purchased {new Date(c.created_at).toLocaleString()}

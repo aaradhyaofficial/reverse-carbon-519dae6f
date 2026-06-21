@@ -64,7 +64,15 @@ function PartnerDashboard() {
     const kgOffset = Math.round(reds.length * 2.4 * 10) / 10;
     const netZeroTarget = 1000; // kg
     const progress = Math.min(100, Math.round((kgOffset / netZeroTarget) * 100));
-    return { used, pending, pointsCirculated, kgOffset, netZeroTarget, progress, rewards: rewards.length };
+    return {
+      used,
+      pending,
+      pointsCirculated,
+      kgOffset,
+      netZeroTarget,
+      progress,
+      rewards: rewards.length,
+    };
   }, [q.data]);
 
   if (!q.data?.partner)
@@ -179,20 +187,38 @@ function PartnerDashboard() {
                 <h2 className="font-display text-xl font-semibold">Add a reward</h2>
                 <div>
                   <Label htmlFor="t">Title</Label>
-                  <Input id="t" required value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} />
+                  <Input
+                    id="t"
+                    required
+                    value={form.title}
+                    onChange={(e) => setForm({ ...form, title: e.target.value })}
+                  />
                 </div>
                 <div>
                   <Label htmlFor="d">Description</Label>
-                  <Textarea id="d" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
+                  <Textarea
+                    id="d"
+                    value={form.description}
+                    onChange={(e) => setForm({ ...form, description: e.target.value })}
+                  />
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
                     <Label htmlFor="cat">Category</Label>
-                    <Input id="cat" required value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} />
+                    <Input
+                      id="cat"
+                      required
+                      value={form.category}
+                      onChange={(e) => setForm({ ...form, category: e.target.value })}
+                    />
                   </div>
                   <div>
                     <Label htmlFor="loc">Location</Label>
-                    <Input id="loc" value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} />
+                    <Input
+                      id="loc"
+                      value={form.location}
+                      onChange={(e) => setForm({ ...form, location: e.target.value })}
+                    />
                   </div>
                 </div>
                 <div>
@@ -354,10 +380,15 @@ function PartnerDashboard() {
               </div>
               <ul className="mt-4 divide-y divide-border">
                 {SUPPLIERS.map((s) => (
-                  <li key={s.name} className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 py-3 sm:flex sm:justify-between">
+                  <li
+                    key={s.name}
+                    className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 py-3 sm:flex sm:justify-between"
+                  >
                     <div className="min-w-0">
                       <p className="truncate font-medium">{s.name}</p>
-                      <p className="text-xs text-muted-foreground">{s.region} · {s.tier}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {s.region} · {s.tier}
+                      </p>
                     </div>
                     <div className="flex shrink-0 items-center gap-3">
                       <span className="font-display text-sm">{s.kg} kg</span>
@@ -399,7 +430,15 @@ function Stat({
   );
 }
 
-function ScopeChip({ label, value, tone }: { label: string; value: string; tone: "ok" | "warn" | "info" }) {
+function ScopeChip({
+  label,
+  value,
+  tone,
+}: {
+  label: string;
+  value: string;
+  tone: "ok" | "warn" | "info";
+}) {
   const cls =
     tone === "ok"
       ? "bg-primary/10 text-primary"
@@ -415,23 +454,78 @@ function ScopeChip({ label, value, tone }: { label: string; value: string; tone:
 }
 
 const LEDGER_ROWS = [
-  { date: "2026-06-18", source: "Grid electricity", scope: "Scope 2", method: "Location-based", kg: "82.4", ref: "DISCOM bill #4421" },
-  { date: "2026-06-15", source: "LPG cooking fuel", scope: "Scope 1", method: "IPCC 2019", kg: "21.7", ref: "Invoice IO-9921" },
-  { date: "2026-06-12", source: "Packaging — paper cups", scope: "Scope 3", method: "Spend-based", kg: "14.2", ref: "PO 7781" },
-  { date: "2026-06-09", source: "Employee commute", scope: "Scope 3", method: "Survey average", kg: "9.6", ref: "Q2 survey" },
-  { date: "2026-06-05", source: "Waste — composted", scope: "Scope 3", method: "Waste-type", kg: "-3.1", ref: "Vendor receipt" },
+  {
+    date: "2026-06-18",
+    source: "Grid electricity",
+    scope: "Scope 2",
+    method: "Location-based",
+    kg: "82.4",
+    ref: "DISCOM bill #4421",
+  },
+  {
+    date: "2026-06-15",
+    source: "LPG cooking fuel",
+    scope: "Scope 1",
+    method: "IPCC 2019",
+    kg: "21.7",
+    ref: "Invoice IO-9921",
+  },
+  {
+    date: "2026-06-12",
+    source: "Packaging — paper cups",
+    scope: "Scope 3",
+    method: "Spend-based",
+    kg: "14.2",
+    ref: "PO 7781",
+  },
+  {
+    date: "2026-06-09",
+    source: "Employee commute",
+    scope: "Scope 3",
+    method: "Survey average",
+    kg: "9.6",
+    ref: "Q2 survey",
+  },
+  {
+    date: "2026-06-05",
+    source: "Waste — composted",
+    scope: "Scope 3",
+    method: "Waste-type",
+    kg: "-3.1",
+    ref: "Vendor receipt",
+  },
 ];
 
 const COMPLIANCE = [
-  { label: "GHG Protocol scope mapping", note: "Scopes 1, 2 and 3 categories assigned", done: true },
+  {
+    label: "GHG Protocol scope mapping",
+    note: "Scopes 1, 2 and 3 categories assigned",
+    done: true,
+  },
   { label: "Q2 emissions inventory", note: "Submitted for third-party verification", done: true },
   { label: "BRSR Core indicators", note: "8 of 9 mandatory disclosures complete", done: false },
-  { label: "Supplier primary data (>80%)", note: "Currently 62% — send pending surveys", done: false },
+  {
+    label: "Supplier primary data (>80%)",
+    note: "Currently 62% — send pending surveys",
+    done: false,
+  },
 ];
 
 const SUPPLIERS = [
   { name: "Anand Dairy Co-op", region: "Gujarat", tier: "Tier 1", kg: 142, status: "Reported" },
-  { name: "Karnataka Coffee Estates", region: "Chikmagalur", tier: "Tier 1", kg: 98, status: "Reported" },
+  {
+    name: "Karnataka Coffee Estates",
+    region: "Chikmagalur",
+    tier: "Tier 1",
+    kg: 98,
+    status: "Reported",
+  },
   { name: "EcoPack Industries", region: "Pune", tier: "Tier 2", kg: 54, status: "Pending" },
-  { name: "GreenLogistics Pvt Ltd", region: "Pan-India", tier: "Tier 1", kg: 211, status: "Pending" },
+  {
+    name: "GreenLogistics Pvt Ltd",
+    region: "Pan-India",
+    tier: "Tier 1",
+    kg: 211,
+    status: "Pending",
+  },
 ];

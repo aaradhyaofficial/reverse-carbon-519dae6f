@@ -33,9 +33,7 @@ function Impact() {
 
         <div className="mt-6 rounded-3xl border border-border bg-leaf p-8 text-primary-foreground shadow-lift">
           <p className="text-xs uppercase tracking-wider opacity-80">Total avoided</p>
-          <p className="mt-1 font-display text-5xl font-semibold">
-            {totalKg.toFixed(1)} kg CO₂
-          </p>
+          <p className="mt-1 font-display text-5xl font-semibold">{totalKg.toFixed(1)} kg CO₂</p>
           <p className="mt-2 inline-flex items-center gap-2 rounded-full bg-primary-foreground/15 px-3 py-1 text-xs">
             <Flame className="h-3.5 w-3.5" /> {streak}-day streak
           </p>
@@ -44,7 +42,11 @@ function Impact() {
         <div className="mt-6 grid gap-4 md:grid-cols-3">
           <Eq icon={Trees} label="Trees-year equivalent" value={eq.treesPlanted.toString()} />
           <Eq icon={Car} label="Km of driving avoided" value={eq.kmNotDriven.toLocaleString()} />
-          <Eq icon={Droplets} label="Hot-shower minutes saved" value={eq.showerMinutes.toLocaleString()} />
+          <Eq
+            icon={Droplets}
+            label="Hot-shower minutes saved"
+            value={eq.showerMinutes.toLocaleString()}
+          />
         </div>
 
         <h2 className="mt-10 font-display text-xl font-semibold">By action</h2>
@@ -60,7 +62,9 @@ function Impact() {
               className="flex items-center justify-between rounded-xl border border-border bg-card p-4 shadow-soft"
             >
               <span className="capitalize">{k.replace("_", " ")}</span>
-              <span className="font-display text-lg font-semibold text-primary">{v.toFixed(1)} kg</span>
+              <span className="font-display text-lg font-semibold text-primary">
+                {v.toFixed(1)} kg
+              </span>
             </li>
           ))}
         </ul>
