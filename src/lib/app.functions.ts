@@ -175,6 +175,7 @@ export const createRedemption = createServerFn({ method: "POST" })
   .inputValidator((d) => z.object({ rewardId: z.string().uuid() }).parse(d))
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: reward, error: rerr } = await supabase
       .from("rewards")
       .select("id,cost_points,active,title")
@@ -208,15 +209,14 @@ export const createRedemption = createServerFn({ method: "POST" })
       .single();
     if (error) throw new Error(error.message);
 
-    // Deduct from wallet immediately (atomicity via single insert)
-    await supabase.from("wallet_transactions").insert({
+    // Deduct from wallet (server-only write)
+    await supabaseAdmin.from("wallet_transactions").insert({
       user_id: userId,
       delta_points: -reward.cost_points,
       kind: "redeem",
       reference_id: redemption.id,
       description: `Redeemed: ${reward.title}`,
     });
-    await supabase.rpc; // noop
     const { data: prof } = await supabase
       .from("profiles")
       .select("total_points")
