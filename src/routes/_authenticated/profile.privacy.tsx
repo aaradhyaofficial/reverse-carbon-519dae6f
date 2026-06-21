@@ -74,9 +74,12 @@ function Privacy() {
           </div>
 
           <div className="rounded-2xl border border-destructive/40 bg-card p-6 shadow-soft">
-            <h2 className="font-display text-lg font-semibold text-destructive">Delete activity data</h2>
+            <h2 className="font-display text-lg font-semibold text-destructive">
+              Delete activity data
+            </h2>
             <p className="mt-1 text-sm text-muted-foreground">
-              Removes all actions, wallet history, and redemptions. Your account stays so you can start fresh.
+              Removes all actions, wallet history, and redemptions. Your account stays so you can
+              start fresh.
             </p>
             <AlertDialog>
               <AlertDialogTrigger asChild>
@@ -88,7 +91,8 @@ function Privacy() {
                 <AlertDialogHeader>
                   <AlertDialogTitle>Delete all your activity data?</AlertDialogTitle>
                   <AlertDialogDescription>
-                    This cannot be undone. Your wallet, actions, and redemption history will be permanently removed.
+                    This cannot be undone. Your wallet, actions, and redemption history will be
+                    permanently removed.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>

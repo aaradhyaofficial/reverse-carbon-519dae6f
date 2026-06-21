@@ -55,7 +55,10 @@ function RewardDetail() {
 
   return (
     <AppShell>
-      <Link to="/marketplace" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+      <Link
+        to="/marketplace"
+        className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
+      >
         <ArrowLeft className="h-4 w-4" /> Back to marketplace
       </Link>
 
@@ -72,7 +75,9 @@ function RewardDetail() {
             <dl className="mt-6 grid grid-cols-2 gap-4 text-sm">
               <div>
                 <dt className="text-muted-foreground">Cost</dt>
-                <dd className="font-display text-xl font-semibold text-primary">{reward.cost_points} pts</dd>
+                <dd className="font-display text-xl font-semibold text-primary">
+                  {reward.cost_points} pts
+                </dd>
               </div>
               <div>
                 <dt className="text-muted-foreground">Partner</dt>
@@ -88,7 +93,12 @@ function RewardDetail() {
               </div>
             </dl>
             <div className="mt-8">
-              <Button size="lg" className="w-full" disabled={redeem.isPending || !!qrDataUrl} onClick={() => redeem.mutate()}>
+              <Button
+                size="lg"
+                className="w-full"
+                disabled={redeem.isPending || !!qrDataUrl}
+                onClick={() => redeem.mutate()}
+              >
                 {redeem.isPending ? "Generating code…" : qrDataUrl ? "Code active" : "Redeem now"}
               </Button>
               <p className="mt-2 text-xs text-muted-foreground">
@@ -100,7 +110,11 @@ function RewardDetail() {
           <div className="grid place-items-center rounded-3xl border border-border bg-secondary p-8 text-secondary-foreground shadow-soft">
             {qrDataUrl ? (
               <div className="text-center">
-                <img src={qrDataUrl} alt="Redemption QR code" className="rounded-xl bg-white p-3 shadow-soft" />
+                <img
+                  src={qrDataUrl}
+                  alt="Redemption QR code"
+                  className="rounded-xl bg-white p-3 shadow-soft"
+                />
                 <p className="mt-4 flex items-center justify-center gap-2 font-display text-xl font-semibold">
                   <Timer className="h-5 w-5 text-primary" /> {secondsLeft}s left
                 </p>
@@ -110,7 +124,10 @@ function RewardDetail() {
               </div>
             ) : (
               <div className="text-center">
-                <div className="mx-auto h-44 w-44 rounded-2xl border-2 border-dashed border-border" aria-hidden />
+                <div
+                  className="mx-auto h-44 w-44 rounded-2xl border-2 border-dashed border-border"
+                  aria-hidden
+                />
                 <p className="mt-4 text-sm text-muted-foreground">
                   Tap <strong>Redeem now</strong> to generate your single-use code.
                 </p>

@@ -40,7 +40,10 @@ function Marketplace() {
       toast.success("Purchased! Coupon added to your Coupons page.");
       qc.invalidateQueries({ queryKey: ["wallet"] });
       qc.invalidateQueries({ queryKey: ["coupons"] });
-      router.navigate({ to: "/coupons", state: { newCouponId: result.redemptionId } as Record<string, unknown> });
+      router.navigate({
+        to: "/coupons",
+        state: { newCouponId: result.redemptionId } as Record<string, unknown>,
+      });
     },
     onError: (e) => toast.error(e instanceof Error ? e.message : "Purchase failed"),
     onSettled: () => setBuyingId(null),
@@ -53,7 +56,8 @@ function Marketplace() {
   }, [q.data]);
 
   const filtered = (q.data ?? []).filter((r) => {
-    const text = `${r.title} ${r.description ?? ""} ${r.partners?.business_name ?? ""}`.toLowerCase();
+    const text =
+      `${r.title} ${r.description ?? ""} ${r.partners?.business_name ?? ""}`.toLowerCase();
     return (cat === "all" || r.category === cat) && text.includes(search.toLowerCase());
   });
 

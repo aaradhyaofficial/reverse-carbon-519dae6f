@@ -78,20 +78,43 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Reverse Carbon Pricing — Get paid to live greener" },
-      { name: "description", content: "Earn real rewards for verified green actions — biking, walking, transit, energy saved. Redeem at local partners with a one-tap QR." },
+      {
+        name: "description",
+        content:
+          "Earn real rewards for verified green actions — biking, walking, transit, energy saved. Redeem at local partners with a one-tap QR.",
+      },
       { property: "og:title", content: "Reverse Carbon Pricing — Get paid to live greener" },
-      { property: "og:description", content: "Earn real rewards for verified green actions — biking, walking, transit, energy saved. Redeem at local partners with a one-tap QR." },
+      {
+        property: "og:description",
+        content:
+          "Earn real rewards for verified green actions — biking, walking, transit, energy saved. Redeem at local partners with a one-tap QR.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Reverse Carbon Pricing — Get paid to live greener" },
-      { name: "twitter:description", content: "Earn real rewards for verified green actions — biking, walking, transit, energy saved. Redeem at local partners with a one-tap QR." },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/1e4636da-c920-42a6-b2d8-b84f9437e3fd" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/1e4636da-c920-42a6-b2d8-b84f9437e3fd" },
+      {
+        name: "twitter:description",
+        content:
+          "Earn real rewards for verified green actions — biking, walking, transit, energy saved. Redeem at local partners with a one-tap QR.",
+      },
+      {
+        property: "og:image",
+        content:
+          "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/1e4636da-c920-42a6-b2d8-b84f9437e3fd",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/1e4636da-c920-42a6-b2d8-b84f9437e3fd",
+      },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Inter:wght@400;500;600;700&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Inter:wght@400;500;600;700&display=swap",
+      },
       { rel: "stylesheet", href: appCss },
     ],
   }),

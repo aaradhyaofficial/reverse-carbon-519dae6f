@@ -91,7 +91,11 @@ function Profile() {
                 Show as anon ID instead of display name.
               </p>
             </div>
-            <Switch checked={anon} onCheckedChange={setAnon} aria-label="Anonymous on leaderboard" />
+            <Switch
+              checked={anon}
+              onCheckedChange={setAnon}
+              aria-label="Anonymous on leaderboard"
+            />
           </div>
           <Button type="submit" disabled={mut.isPending}>
             {mut.isPending ? "Saving…" : "Save changes"}

@@ -16,15 +16,14 @@ function CouponsPage() {
   const fn = useServerFn(listMyCoupons);
   const q = useQuery({ queryKey: ["coupons"], queryFn: () => fn() });
   const coupons = q.data ?? [];
-  const newCouponId = (router.state.location.state as any)?.newCouponId as string | undefined;
+  const newCouponId = (router.state.location.state as unknown as { newCouponId?: string })
+    ?.newCouponId;
 
   return (
     <AppShell>
       <section>
         <h1 className="font-display text-3xl font-semibold">My Coupons</h1>
-        <p className="mt-1 text-muted-foreground">
-          Rewards you've exchanged with your points.
-        </p>
+        <p className="mt-1 text-muted-foreground">Rewards you've exchanged with your points.</p>
 
         {coupons.length === 0 ? (
           <div className="mt-8 rounded-2xl border border-dashed border-border p-10 text-center text-muted-foreground">
@@ -33,7 +32,17 @@ function CouponsPage() {
         ) : (
           <ul className="mt-6 grid gap-4 md:grid-cols-2">
             {coupons.map((c) => {
-              const r = (c as any).rewards;
+              const r = (
+                c as {
+                  rewards?: {
+                    title?: string;
+                    description?: string;
+                    category?: string;
+                    location?: string;
+                    partners?: { business_name?: string } | null;
+                  } | null;
+                }
+              ).rewards;
               const isNew = c.id === newCouponId;
               return (
                 <li
@@ -83,9 +92,7 @@ function CouponsPage() {
                         {c.code}
                       </span>
                     </div>
-                    <span className="text-xs capitalize text-muted-foreground">
-                      {c.status}
-                    </span>
+                    <span className="text-xs capitalize text-muted-foreground">{c.status}</span>
                   </div>
                   <p className="mt-2 text-[11px] text-muted-foreground">
                     Purchased {new Date(c.created_at).toLocaleString()}

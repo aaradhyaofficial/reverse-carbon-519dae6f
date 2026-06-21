@@ -237,7 +237,9 @@ export const listMyCoupons = createServerFn({ method: "GET" })
     const { supabase, userId } = context;
     const { data } = await supabase
       .from("redemptions")
-      .select("id,code,status,created_at,code_expires_at,cost_points,used_at,rewards(title,description,category,location,partners(business_name))")
+      .select(
+        "id,code,status,created_at,code_expires_at,cost_points,used_at,rewards(title,description,category,location,partners(business_name))",
+      )
       .eq("user_id", userId)
       .order("created_at", { ascending: false })
       .limit(100);
@@ -252,12 +254,16 @@ export const getLeaderboard = createServerFn({ method: "GET" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data } = await supabaseAdmin
       .from("profiles")
-      .select("id,display_name,anonymous_on_leaderboard,total_carbon_kg,total_points,current_streak")
+      .select(
+        "id,display_name,anonymous_on_leaderboard,total_carbon_kg,total_points,current_streak",
+      )
       .order("total_carbon_kg", { ascending: false })
       .limit(50);
     return (data ?? []).map((p, i) => ({
       rank: i + 1,
-      handle: p.anonymous_on_leaderboard ? `Anon-${p.id.slice(0, 4)}` : (p.display_name ?? "Member"),
+      handle: p.anonymous_on_leaderboard
+        ? `Anon-${p.id.slice(0, 4)}`
+        : (p.display_name ?? "Member"),
       carbonKg: Number(p.total_carbon_kg ?? 0),
       points: p.total_points ?? 0,
       streak: p.current_streak ?? 0,
@@ -277,10 +283,7 @@ export const updateProfile = createServerFn({ method: "POST" })
       .parse(d),
   )
   .handler(async ({ data, context }) => {
-    const { error } = await context.supabase
-      .from("profiles")
-      .update(data)
-      .eq("id", context.userId);
+    const { error } = await context.supabase.from("profiles").update(data).eq("id", context.userId);
     if (error) throw new Error(error.message);
     return { ok: true };
   });

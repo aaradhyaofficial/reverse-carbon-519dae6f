@@ -48,7 +48,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       </a>
       <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
-          <Link to="/dashboard" className="flex items-center gap-2 font-display text-lg font-semibold">
+          <Link
+            to="/dashboard"
+            className="flex items-center gap-2 font-display text-lg font-semibold"
+          >
             <span className="grid h-8 w-8 place-items-center rounded-lg bg-leaf text-primary-foreground">
               <Sprout className="h-4 w-4" />
             </span>
@@ -83,7 +86,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 </li>
               ))}
               <li className="col-span-2">
-                <Button variant="ghost" size="sm" className="w-full justify-start" onClick={signOut}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full justify-start"
+                  onClick={signOut}
+                >
                   <LogOut className="mr-2 h-4 w-4" /> Sign out
                 </Button>
               </li>
