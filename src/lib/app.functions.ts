@@ -309,10 +309,11 @@ export const deleteMyData = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
     const { supabase, userId } = context;
-    await supabase.from("wallet_transactions").delete().eq("user_id", userId);
-    await supabase.from("green_actions").delete().eq("user_id", userId);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    await supabaseAdmin.from("wallet_transactions").delete().eq("user_id", userId);
+    await supabaseAdmin.from("green_actions").delete().eq("user_id", userId);
     await supabase.from("redemptions").delete().eq("user_id", userId);
-    await supabase.from("daily_action_limits").delete().eq("user_id", userId);
+    await supabaseAdmin.from("daily_action_limits").delete().eq("user_id", userId);
     await supabase
       .from("profiles")
       .update({ total_carbon_kg: 0, total_points: 0, current_streak: 0, last_action_date: null })
